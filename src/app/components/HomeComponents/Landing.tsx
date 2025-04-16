@@ -6,6 +6,11 @@ import doctor from '../../../../public/doctor.png'
 import Image from 'next/image'
 import Media, { MediaItem } from './Media'
 import { FaXTwitter ,FaInstagram,FaFacebook ,FaPhone} from 'react-icons/fa6';
+import { FaNotesMedical } from "react-icons/fa";
+import { CiMedicalCross } from "react-icons/ci";
+import { IoIosMedkit } from "react-icons/io";
+import { FaUserDoctor } from "react-icons/fa6";
+import { FaClinicMedical } from "react-icons/fa";
 
 type Props = {}
 
@@ -20,9 +25,7 @@ const Landing = (props: Props) => {
          <div className='w-[32%] text-sm text-gray-300 font-bold  '>
               We understand that and acute pain can happen unexpectly , Our energy         
          </div>
-         <Link href={'/'} className=' lg:py-[6px] bg-white text-black  rounded-lg w-[18%] flex justify-center flex-col items-center font-semibold text-blue-400 text-sm'>
-            Make appointment
-         </Link>
+       
          <ClinicFeatures>
             <Feature number={'24/7'} information='Emergency Services' />
             <Feature number={'80+'} information='Spetialist Doctor' />
@@ -43,12 +46,21 @@ const Landing = (props: Props) => {
              <FaPhone className='text-3xl'/>
             </MediaItem>
           </Media>
-
+          <Link href={'/'} className=' lg:py-[7px] bg-yellow-500 hover:bg-yellow-400 text-white  rounded-lg w-[15%] flex justify-center flex-col items-center font-semibold text-blue-400 text-sm lg:mt-[30px]'>
+            Make appointment
+         </Link>
           <Image src={doctor} alt='' className='lg:w-[400px] lg:h-[400px] absolute top-[80px] right-[170px]' />
-         
+           <FaNotesMedical className='absolute text-white lg:text-5xl lg:top-[200px]  lg:right-[600px]' />
+           <IoIosMedkit className='absolute text-white lg:text-5xl lg:top-[55px]  lg:right-[500px]' />
+           <FaUserDoctor className='absolute text-white lg:text-5xl lg:bottom-[100px]  lg:right-[640]' />
+           <FaClinicMedical className='absolute text-white lg:text-5xl lg:top-[100px]  lg:right-[650]' />
+
+           
+           
     </div>
   )
 }
 
 
 export default Landing
+

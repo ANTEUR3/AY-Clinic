@@ -5,7 +5,7 @@ type Props = {}
 
 const Media = ({children}: {children:ReactNode}) => {
   return (
-    <div className='flex justify-start items-center gap-x-[40px] lg:pt-[10px]'>
+    <div className='flex justify-start items-center gap-x-[40px] '>
           {children}
     </div>
   )

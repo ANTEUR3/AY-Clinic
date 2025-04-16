@@ -6,7 +6,7 @@ type Props = {
 
 const ClinicFeatures = ({children}: Props) => {
   return (
-    <div className='flex justify-start items-start lg:gap-x-[28px] mt-[30px]'>
+    <div className='flex justify-start items-start lg:gap-x-[28px] '>
         {children}
     </div>
   )
