@@ -6,5 +6,7 @@ export type doctorType={
     age:number,
     gender: string,
     structure:string,
-    location:string
+    location:string,
+    Email:string,
+    password:string
 }
