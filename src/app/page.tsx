@@ -7,7 +7,8 @@ import { GiMedicalDrip } from "react-icons/gi";
 import { MdLocalPharmacy } from "react-icons/md";
 import { CiMedicalClipboard } from "react-icons/ci";
 import { BsLungsFill } from "react-icons/bs";
-
+import About from "./components/HomeComponents/About";
+import Doctors from "./components/HomeComponents/Doctors";
 
 export default function Home() {
   return (
@@ -30,6 +31,8 @@ export default function Home() {
             <BsLungsFill className="lg:text-5xl " />
           </ServiceItem>
          </Services>
+         <About />
+         <Doctors/>
     </div>
   );
 }

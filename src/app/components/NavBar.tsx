@@ -34,7 +34,7 @@ export default NavBar
 export const NavItem=({item}:{item:string})=>{
     const dispatch=useDispatch();
     const itemName=useSelector((state:any)=>state.navItem.name)
-    return <div className={`text-lg font-semibold ${itemName==item ?'text-blue-800':'text-gray-800'} cursor-pointer hover:text-gray-600` } onClick={()=>{dispatch(navItemActions.updateItem(item))}}>
+    return <Link href={`#${item}`} className={`text-lg font-semibold ${itemName==item ?'text-blue-800':'text-gray-800'} cursor-pointer hover:text-gray-600` } onClick={()=>{dispatch(navItemActions.updateItem(item))}}>
         {item}
-    </div>
+    </Link>
 }

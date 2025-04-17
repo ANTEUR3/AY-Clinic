@@ -4,6 +4,7 @@ import "./globals.css";
 import WrapComponent from "./components/wrapComponent";
 import NavBar from "./components/NavBar";
 import {NavItem} from "./components/NavBar";
+import Footre from "./components/Footre";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -38,6 +39,7 @@ export default function RootLayout({
             <NavItem item="contact"/>
        </NavBar>
            {children}
+         <Footre />  
        </WrapComponent>
       </body>
     </html>

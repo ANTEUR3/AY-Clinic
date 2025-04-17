@@ -9,12 +9,12 @@ import ServicesDeatlis ,{Service} from './ServiceDeatlis'
 
 const Services = ({children}: {children:ReactNode}) => {
   return (
-    <div className='w-full lg:px-[70px]  lg:pt-[20px] '>
+    <div className='w-full lg:px-[70px]  lg:pt-[20px] 'id='services'>
         <div className='flex justify-center items-center lg:gap-x-[10px] w-full'>
             <Image src={clinicLogo} alt='' className='lg:w-[60px] lg:h-[60px]' />
-            <h1 className='font-bold lg:text-xl text-blue-700'>Our Services</h1>
+            <h1 className='font-bold lg:text-3xl text-blue-700'>Our Services</h1>
         </div>
-        <div className='flex justify-center items-center gap-x-[50px] lg:pt-[20px] w-[70%] mx-auto'>
+        <div className='flex justify-center items-center gap-x-[50px] lg:pt-[30px] w-[70%] mx-auto'>
         {children}
         </div>
         <ServicesDeatlis>

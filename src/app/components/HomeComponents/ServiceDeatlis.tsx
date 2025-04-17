@@ -6,7 +6,7 @@ type Props = {}
 
 const ServicesDeatlis = ({children}: {children:ReactNode}) => {
   return (
-    <div className='lg:w-[70%] mx-auto lg:mt-[30px] ' >
+    <div className='lg:w-[70%] mx-auto lg:mt-[60px] ' >
         {children}
     </div>
   )
