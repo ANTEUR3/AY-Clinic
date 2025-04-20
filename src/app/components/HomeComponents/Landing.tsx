@@ -14,9 +14,9 @@ import { FaClinicMedical } from "react-icons/fa";
 
 type Props = {}
 
-const Landing = (props: Props) => {
+const Landing = ({appointment,visible}: {appointment:any,visible:boolean}) => {
   return (
-    <div className='h-[530px] w-[92%] mx-auto bg-gradient-to-br from-blue-300 via-blue-500 to-blue-700 rounded-xl pt-[100px] lg:px-[90px] flex flex-col gap-y-[15px] relative '>
+    <div className={`h-[530px] w-[92%] mx-auto bg-gradient-to-br from-blue-300 via-blue-500 to-blue-700 rounded-xl pt-[100px] lg:px-[90px] flex flex-col gap-y-[15px] relative ${visible?'opacity-15':'opacity-100'}`}>
          <div className='lg:text-4xl text-white w-[35%]  font-bold flex flex-col gap-y-[12px]  '>
              <h1 className='font-black'> The Best Medical</h1>
              <h1>and Tratment center</h1> 
@@ -46,9 +46,9 @@ const Landing = (props: Props) => {
              <FaPhone className='text-3xl'/>
             </MediaItem>
           </Media>
-          <Link href={'/'} className=' lg:py-[7px] bg-yellow-500 hover:bg-yellow-400 text-white  rounded-lg w-[15%] flex justify-center flex-col items-center font-semibold text-blue-400 text-sm lg:mt-[30px]'>
+          <button onClick={()=>{appointment(true)}} className='cursor-pointer lg:py-[7px] bg-yellow-500 hover:bg-yellow-400 text-white  rounded-lg w-[15%] flex justify-center flex-col items-center font-semibold text-blue-400 text-sm lg:mt-[30px]'>
             Make appointment
-         </Link>
+         </button>
           <Image src={doctor} alt='' className='lg:w-[400px] lg:h-[400px] absolute top-[80px] right-[170px]' />
            <FaNotesMedical className='absolute text-white lg:text-5xl lg:top-[200px]  lg:right-[600px]' />
            <IoIosMedkit className='absolute text-white lg:text-5xl lg:top-[55px]  lg:right-[500px]' />

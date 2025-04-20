@@ -1,3 +1,4 @@
+"use client"
 import Image from "next/image";
 import Landing from "./components/HomeComponents/Landing";
 import Services from "./components/HomeComponents/Services";
@@ -9,11 +10,17 @@ import { CiMedicalClipboard } from "react-icons/ci";
 import { BsLungsFill } from "react-icons/bs";
 import About from "./components/HomeComponents/About";
 import Doctors from "./components/HomeComponents/Doctors";
-
+import Appointments from "./components/Appointments";
+import { useState } from "react";
 export default function Home() {
+  const [appointment,setAppointment]=useState<boolean>(false)
   return (
     <div>
-         <Landing/>
+       <Appointments visible={appointment} appointment={setAppointment} >
+          
+       </Appointments>
+       <Landing visible={appointment} appointment={setAppointment} />
+        
          <Services >
           <ServiceItem index={1} information="Dental  center">
             <TbDental className="lg:text-5xl " />
