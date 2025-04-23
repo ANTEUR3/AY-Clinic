@@ -1,8 +1,11 @@
 import express from 'express'
 import http from 'http'
 import mongoose from 'mongoose'
+import dotenv from 'dotenv'
+import {DoctorRoutes,AppointmentRouter,ServiceRoutes} from './routes/routes.mjs'
 
-import {DoctorRoutes} from './routes/routes.mjs'
+
+dotenv.config()
 const app=express()
 app.use(express.json())
 
@@ -14,9 +17,14 @@ app.listen((port),()=>{
       console.log(`'hello from ${port}...`)
 })
 
-app.use('/api/doctors',DoctorRoutes)
+app.use('/api/doctor',DoctorRoutes)
+app.use('/api/appointment',AppointmentRouter)
+app.use('/api/service',ServiceRoutes)
+
+
 
 const ClusterConnectionString=process.env.MongoConnectionString
+
 mongoose.connect(ClusterConnectionString).then(()=>{
       console.log('nice connection with mongoDB')
 })

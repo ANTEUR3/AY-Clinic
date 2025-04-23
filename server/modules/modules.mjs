@@ -4,7 +4,12 @@ import mongoose from 'mongoose'
 
 const appointmentSchema = new mongoose.Schema({
 
-    patient:{
+    patientId:{
+        type: String,
+        required:true
+    },
+    patientName:{
+
         type: String,
         required:true
     },
@@ -13,10 +18,19 @@ const appointmentSchema = new mongoose.Schema({
         ref: 'Doctor',
         required: true
     },
+    age:{
+        type: Number,
+        required: false
+    }
+    ,
     date: {
         type: Date,
         required: true
-    }
+    },
+    illness:{
+        type: String,
+        required:false
+    },
 }
 ,
 {timestamps:true}
