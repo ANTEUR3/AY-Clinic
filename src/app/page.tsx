@@ -14,12 +14,13 @@ import Appointments from "./components/Appointments";
 import { useState } from "react";
 export default function Home() {
   const [appointment,setAppointment]=useState<boolean>(false)
+
   return (
     <div>
-       <Appointments visible={appointment} appointment={setAppointment} >
-          
-       </Appointments>
-       <Landing visible={appointment} appointment={setAppointment} />
+       <Appointments visible={appointment} setVisible={setAppointment} />
+      
+     
+       <Landing setVisible={setAppointment} visible={appointment}  />
         
          <Services >
           <ServiceItem index={1} information="Dental  center">

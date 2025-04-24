@@ -140,6 +140,7 @@ AppointmentRouter.get('/doctor/:doctorId',async(req,res)=>{
 AppointmentRouter.post('/',async(req,res)=>{
     try {
         const appointment = req.body;
+        console.log(appointment)
         const appointment_= await Appointment.create(appointment);
         return res.status(200).send(appointment_);
     }catch (error) {

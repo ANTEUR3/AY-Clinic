@@ -1,139 +1,341 @@
 "use client"
 import Link from 'next/link'
 import React, { ReactNode, useState,useContext,createContext, useEffect  } from 'react'
-import { useDispatch, UseSelector } from 'react-redux'
-import Image from 'next/image'
-import AppImage from '../../../public/MedicinTools.png'
-import { useSelector , UseDispatch } from 'react-redux'
-import { PatientsActions } from '@/redux/PatientSlice'
-const Appointments = ({visible,appointment}:{visible:boolean,appointment:any}) => {
-const [part,setPart]=useState(0);
+import { FaAddressCard , FaHornbill } from "react-icons/fa";
+import { MdFilterVintage , MdHomeRepairService} from "react-icons/md";
+import { BsCalendar2DateFill } from "react-icons/bs";
+import { FaUserDoctor } from "react-icons/fa6";
+import { UseDispatch } from 'react-redux';
+import {createAppointment} from '../DataFunction/Appointment';
 
+const Appointments = ({visible,setVisible}:{visible:boolean,setVisible:any}) => {
+
+   
+    const [information, setInformation] = useState(1)
+    const [formData, setFormData] = useState({
+      fullName: "",
+      IdentityNumber:'',
+      Age: 0,
+      email: "",
+      illness:"",
+      service:"Dental",
+      doctor:"680a514afc433c7c18b33fa6",
+      date:new Date(),
+    })
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    setFormData((prev) => ({ ...prev, [name]: value }))
+  }
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    createAppointment({patientName:formData.fullName,patientId:formData.IdentityNumber,doctor:formData.doctor,age:formData.Age,illness:formData.illness,date:formData.date})
+   
+    
+  }
+
+  const Next=()=>{
+    if(formData.fullName && formData.email && formData.Age && formData.IdentityNumber){
+      setInformation(2)
+
+    }
+
+
+  }
+
+  const Previouse=()=>{
+    setInformation(1)
+
+  }
+  const handleCancel=()=>{
+
+    formData.fullName='';
+    formData.IdentityNumber='';
+    formData.Age=0;
+    formData.illness='';
+    formData.service='';
+    formData.email='';
+    formData.doctor='';
+    formData.date=new Date(0);
+
+  }
   return (
-    <div className={`absolute top-0  w-[85%] mx-auto   rounded-xl border  flex justify-between items-start  z-10 bg-white left-[50%] -translate-x-[50%] top-[90px] transition-all duration-900 ${visible?'translate-y-0':'-translate-y-[600px]'}`}>
-          <div className='px-[40px] bg-blue-500 py-2 absolute w-full rounded-tl-xl rounded-tr-xl flex justify-end items-center'>
-             <button onClick={()=>{appointment(false)}} className='rounded-xl border-white text-white px-2 cursor-pointer hover:bg-blue-300 py-1 border border-white'>Cancel </button>
+    <div className={`flex items-center py-12  px-12 rounded-xl   justify-center  bg-white  absolute z-10 left-[50%] -translate-x-[50%] top-[50%] transition-all duration-800 shadow-lg border-2 border-blue-500 ${visible ? "-translate-y-[47%]" : "-translate-y-[1000px]"}` }>
+    <div className="w-full max-w-md  rounded-lg text-black ">
+     
+      <button onClick={()=>{setInformation(1),setVisible(false);handleCancel()}} className="absolute right-5 top-5 rounded-md lg:px-3 lg:py-1 text-white bg-red-600 hover:px-4 transition-all duration-700 cursor-pointer">Cancel</button>
+      <form onSubmit={handleSubmit} className="space-y-2 ">
+        <div className={`space-y-2 ${information===1?'block':'hidden'}`}>
+            <label htmlFor="IdentityNumber" className="block text-sm">
+             Identity Number
+            </label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-neutral-400">
+                <FaAddressCard />
+                  
+              </div>
+              <input
+                type="Number"
+                id="IdentityNumber"
+                name="IdentityNumber"
+                value={formData.IdentityNumber}
+                onChange={handleChange}
+                placeholder="Identity number"
+                className="w-full pl-10 pr-3 py-2 bg-white border border-blue-500 rounded focus:outline-none focus:ring-1 focus:ring-neutral-700"
+                required
+              />
+            </div>
+          
+
+          
+        </div>
+
+
+        <div className={`space-y-2 ${information===1?'block':'hidden'}`}>         
+            <label htmlFor="fullName" className="block text-sm">
+              Full Name
+            </label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-neutral-400">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+              </div>
+              <input
+                type="text"
+                id="fullName"
+                name="fullName"
+                value={formData.fullName}
+                onChange={handleChange}
+                placeholder="Full Name"
+                className="w-full pl-10 pr-3 py-2 bg-white border border-blue-500 rounded focus:outline-none focus:ring-1 focus:ring-neutral-700"
+                required
+              />
+            </div>
+          
+
+          
+        </div>
+
+
+        <div className={`space-y-2 ${information===1?'block':'hidden'}`}>
+                      <label htmlFor="Age" className="block text-sm">
+             Age
+            </label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-neutral-400">
+                <MdFilterVintage />
+                  
+              </div>
+              <input
+                type="number"
+                id="Age"
+                name="Age"
+                value={formData.Age}
+                onChange={handleChange}
+                placeholder="Your age"
+                className="w-full pl-10 pr-3 py-2 bg-white border border-blue-500 rounded focus:outline-none focus:ring-1 focus:ring-neutral-700"
+                required
+              />
+            </div>
+          
+
+          
+        </div>
+
+        
+
+        <div className={`space-y-2 ${information===1?'block':'hidden'}`}>     
+               <label htmlFor="email" className="block text-sm">
+            Email
+          </label>
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-neutral-400">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+              </svg>
+            </div>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Email"
+              className="w-full pl-10 pr-3 py-2 bg-white border border-blue-500 rounded focus:outline-none focus:ring-1 focus:ring-neutral-700"
+              required
+            />
           </div>
-          <LeftSide part={part} Next={setPart} appointment={appointment} >
-             
-          </LeftSide>
-          <RightSide part={part}/>
+        </div>
+       
+
+
+        <div className={`space-y-2 ${information===2?'block':'hidden'}`}>
+          <label htmlFor="doctor" className="block text-sm">
+            Service
+          </label>
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-neutral-400">
+            <MdHomeRepairService />
+
+            </div>
+            <select
+              
+              id="service"
+              name="service"
+              
+              className="w-full pl-10 pr-3 py-2 bg-white border border-blue-500 rounded focus:outline-none focus:ring-1 focus:ring-neutral-700"
+              required
+            >
+              <option value="">Select a service</option>
+              
+              <option value="">Dental</option>
+              </select>
+          </div>
+        </div>
+        
+        <div className={`space-y-2 ${information===2?'block':'hidden'}`}>     
+               <label htmlFor="email" className="block text-sm">
+            Illness
+          </label>
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-neutral-400">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+              </svg>
+            </div>
+            <input
+              type="text"
+              id="illness"
+              name="illness"
+              value={formData.illness}
+              onChange={handleChange}
+              placeholder="illness"
+              className="w-full pl-10 pr-3 py-2 bg-white border border-blue-500 rounded focus:outline-none focus:ring-1 focus:ring-neutral-700"
+              required
+            />
+          </div>
+        </div>
+
+        <div className={`space-y-2 ${information===2?'block':'hidden'}`}>
+          <label htmlFor="doctor" className="block text-sm">
+            Doctor
+          </label>
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-neutral-400">
+            <FaUserDoctor />
+
+            </div>
+            <select
+              
+              id="doctor"
+              name="doctor"
+              
+              className="w-full pl-10 pr-3 py-2 bg-white border border-blue-500 rounded focus:outline-none focus:ring-1 focus:ring-neutral-700"
+              required
+            >
+                            <option value="">Select a doctor</option>
+                            <option value="">Dental</option>
+
+              </select>
+          </div>
+        </div>
+
+        <div className={`space-y-2 ${information===2?'block':'hidden'}`}>
+          <label htmlFor="date" className="block text-sm">
+            Date
+          </label>
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-neutral-400">
+            <BsCalendar2DateFill />
+
+            </div>
+            <input
+              type="date"
+              id="date"
+              name="date"
+              placeholder="Ilness"
+              className="w-full pl-10 pr-3 py-2 bg-white border border-blue-500 rounded focus:outline-none focus:ring-1 focus:ring-neutral-700"
+              required
+            />
+          </div>
+        </div>
+
+        
+
+        <button
+          type="submit"
+          onClick={Next}
+          className={`w-full py-1 mt-4  text-black font-medium rounded transition-colors  ${formData.fullName && formData.email && formData.Age && formData.IdentityNumber?'bg-blue-500 hover:bg-blue-400 cursor-pointer':'bg-gray-400 '} ${information===1?'block':'hidden'}`}
+        >
+           Next     
+   </button>
+   <div className='w-full flex justify-between items-center'>
+   <button
+          type="submit"
+          onClick={Previouse}
+          className={`w-1/3 py-1 mt-4 bg-amber-400  text-black font-medium rounded transition-colors cursor-pointer  ${information===2?'block':'hidden'}`}
+        >
+           Back     
+   </button>
+   <button
+          type="submit"
+          
+          className={`w-1/3 py-1 mt-4 bg-amber-400  text-black font-medium rounded transition-colors  ${formData.doctor && formData.illness && formData.service && formData.date?'bg-yellow-400 hover:bg-yellow-500 cursor-pointer':'bg-gray-400 '}  ${information===2?'block':'hidden'}`}
+        >
+           Confirm     
+   </button>
+   </div>
+   
+
+        <p className="text-xs text-neutral-500 mt-1">
+          By creating an account, you agree to the{" "}
+          <Link href="/terms" className="text-neutral-400 hover:underline">
+            Terms of Service
+          </Link>
+          . We'll occasionally send you account-related emails.
+        </p>
+      </form>
+
+      
     </div>
+  </div>
   )
+
 }
 
 export default Appointments
 
-const RightSide=({part}:{part:number})=>{
-    return <div className='w-1/2 flex flex-col justify-center items-center bg-transparent  '>
-       
-       
-        
-    </div>
-}
-const LeftSide=({part,Next,appointment}:{part:number,Next:any,appointment:any})=>{
-   const [Name,setName]=useState<string | number >('');
-   const [Adress,setAdress]=useState<string | number >('');
-   const [Age,setAge]=useState<number | string>(0);
-   const [doctor,setDoctor]=useState<string| number>(0);
-   const [service,setService]=useState<string| number>(0);
-   
-   const Patients=useSelector((state:any)=>state.patients);
-   const  dispatch=useDispatch();
-
-   const conformAppointment=()=>{
-        dispatch(PatientsActions.addPatient({Name,Age,Adress,doctor,service}))
-        appointment(false)
-   }
-
-   useEffect(()=>{
-    console.log(Patients)
-   },[Patients])
-
-    return <div className=' relative flex flex-col justify-start items-start lg:px-[30px] lg:pt-[70px] lg:pb-[30px] relative w-1/2  '>
-               <h1 className='font-bold text-3xl mb-5  '>Book Appointment</h1>
-                <div className='h-[100%] w-full'>
-                    <InputContext.Provider value={{Name,Age,Adress,setName,setAdress,setAge,doctor,setDoctor,service,setService}}>
-                       <Patient part={part} >
-                          
-                        </Patient>
-                        <ServiceApp part={part} />
-                    </InputContext.Provider>
-                   
-                </div>
-                <div className=' w-full flex justify-between items-center lg:mt-[30px] '>
-                      <button className={`px-3 py-1 border rounded-xl cursor-pointer hover:bg-gray-100 ${part==1?'block':'text-transparent border-0'}`} onClick={()=>{Next(0)}}>Cancel</button>
-                      <button className={`px-5 py-1 border rounded-xl cursor-pointer bg-blue-500 hover:bg-blue-400 text-white border-white  ${part==0?'block':'hidden'}`} onClick={()=>{Next(1)}}>Next</button>
-                      <button className={`px-5 py-1 border rounded-xl cursor-pointer bg-blue-500 hover:bg-blue-400 text-white border-white ${part==0?'hidden':'block'}  `} onClick={conformAppointment}>Confirm</button>
-                </div>
-                
-    </div>
-    
-}
-
-const Patient=({part}:{part:number})=>{
-    const context=useInputContext();
-         return <div className={`${part==0?'flex flex-col':'hidden'}`}>
-                 <h2 className='font-semibold mb-5 text-xl'>Your Informations !</h2>
-                 <div className='w-full flex flex-col gap-y-[3px] justify-start items-start mb-2'>
-                       <label className='font-semibold' htmlFor="">Name</label>
-                       <input type='text' onChange={(e)=>{context.setName(e.target.value)}}  placeholder='Your Name' className='w-full rounded-xl px-3 py-1 border border-gray-600'  />
-               </div>
-               <div className='w-full flex flex-col gap-y-[3px] justify-start items-start mb-2'>
-                       <label className='font-semibold' htmlFor="">Adress</label>
-                       <input onChange={(e)=>{context.setAdress(e.target.value)}} type='text' placeholder='SYour Adress' className='w-full rounded-xl px-3 py-1 border border-gray-600'  />
-               </div>
-               <div className='w-full flex flex-col gap-y-[3px] justify-start items-start mb-2'>
-                       <label className='font-semibold' htmlFor="">Age</label>
-                       <input onChange={(e)=>{context.setAge(e.target.value)}} type='number' placeholder='Age' className='w-full rounded-xl px-3 py-1 border border-gray-600'  />
-               </div>
-              
-                 </div>
-}
-
-
-
-
-const ServiceApp=({part}:{part:number})=>{
-
-    const context=useInputContext();
-
-    return <div className={`${part==1?'block':'hidden'}`}>
-              <h2 className='font-semibold mb-5'>Please select your service !</h2>
-               <div className='w-full flex flex-col gap-y-[3px] justify-start items-start mb-2'>
-                       <label className='font-semibold' htmlFor="">Service</label>
-                       <input onChange={(e)=>{context.setService(e.target.value)}} type='text' placeholder='Select your service Ex:Dental service' className='w-full rounded-xl px-3 py-1 border border-gray-600'  />
-               </div>
-               <div className='w-full flex flex-col gap-y-[3px] justify-start items-start mb-2'>
-                       <label className='font-semibold' htmlFor="">Doctor</label>
-                       <input onChange={(e)=>{context.setDoctor(e.target.value)}} type='text' placeholder='Select your Doctore' className='w-full rounded-xl px-3 py-1 border border-gray-600'  />
-               </div>
-    </div>
-}
-
- interface InputContextType{
-    Name:String | number,
-    Adress:String | number,
-    Age:Number | string,
-    setName:React.Dispatch<React.SetStateAction<string| number>>,
-    setAge:React.Dispatch<React.SetStateAction<number | string>>,
-    setAdress:React.Dispatch<React.SetStateAction<string | number>>,
-    doctor:String | number,
-    setDoctor:React.Dispatch<React.SetStateAction<string| number>>,
-    service:String | number,
-    setService:React.Dispatch<React.SetStateAction<string| number>>,
-
-
-    
-}
-
-const InputContext=createContext<InputContextType | null>(null);
-
-export const useInputContext=()=>{
-    const context=useContext(InputContext);
-
-    if(!context){
-      throw new Error ('useItemContext must be used within a ItemContextProvider')
-  }
-  return context
-}
