@@ -10,7 +10,7 @@ const store=configureStore({
        appointment:appointmentSlice.reducer,
        navItem:navItemSlice.reducer,
        service:ClinicServiceSlice.reducer,
-       patients:PatientSlice.reducer
+       patients:PatientSlice.reducer,
     }
 
 })

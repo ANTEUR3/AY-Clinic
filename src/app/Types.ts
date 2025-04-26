@@ -14,7 +14,7 @@ export type ServiceType={
     _id:String,
     name:String,
     description:String,
-    logo:String
+    logo:string
 }
 
 export type AppointmentType={

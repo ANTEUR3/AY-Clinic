@@ -1,5 +1,5 @@
 "use client"
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useEffect } from 'react'
 import clinicLogo from '../../../public/clinicLogo.png'
 import Image from 'next/image'
 import Link from 'next/link'

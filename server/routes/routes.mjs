@@ -5,7 +5,7 @@ import { Doctor,Service,Appointment } from "../modules/modules.mjs";
 export const DoctorRoutes=express.Router();
 export const ServiceRoutes=express.Router();
 export const AppointmentRouter=express.Router();
-
+export const SignIn=express.Router();
 
 DoctorRoutes.get('/',async(req,res)=>{
      try {
@@ -147,4 +147,23 @@ AppointmentRouter.post('/',async(req,res)=>{
         return res.status(500).send({message:error.message})
     }
          
+})
+
+//------------------------------------------------------------------------------------
+
+ SignIn.post('/',async(req,res)=>{
+    try{
+        const {userName,password}=req.body
+        const user=await Doctor.findOne({userName,password}).populate('service')
+        if(!user){
+            return res.status(404).send({result:0})
+        }else{
+            return res.status(200).send({result:1,user})
+        }
+
+    }catch(error){
+        return res.status(500).send({message:error.message})
+
+    }
+
 })

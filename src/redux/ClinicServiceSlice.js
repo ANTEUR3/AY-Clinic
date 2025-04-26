@@ -3,11 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 
  const ClinicServiceSlice=createSlice({
     name:'clinicService',
-    initialState:{service:1},
+    initialState:{services:[],currentService:1},
     reducers:{
+        setServices(state,action){
+             state.services=action.payload    
+        },
         updateService(state,action){
-           state.service=action.payload
-        }
+               state.currentService=action.payload
+                    }
     }
 })
 export const ServiceActions=ClinicServiceSlice.actions;

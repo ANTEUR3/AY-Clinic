@@ -5,16 +5,29 @@ import Services from "./components/HomeComponents/Services";
 import { ServiceItem } from "./components/HomeComponents/Services";
 import { TbDental,TbMedicineSyrup } from "react-icons/tb";
 import { GiMedicalDrip } from "react-icons/gi";
-import { MdLocalPharmacy } from "react-icons/md";
 import { CiMedicalClipboard } from "react-icons/ci";
 import { BsLungsFill } from "react-icons/bs";
 import About from "./components/HomeComponents/About";
 import Doctors from "./components/HomeComponents/Doctors";
 import Appointments from "./components/Appointments";
-import { useState } from "react";
+import { useState , useEffect } from "react";
+import { getDoctors  } from "./DataFunction/Dctors";
+import { getServices } from "./DataFunction/Service";
+import { useDispatch } from "react-redux";
+import { doctorAcrtions } from "@/redux/doctorSlice";
+import { ServiceActions } from "@/redux/ClinicServiceSlice";
 export default function Home() {
+  const dispatch=useDispatch()
   const [appointment,setAppointment]=useState<boolean>(false)
+  useEffect(()=>{
+    getDoctors().then((res)=>{
+       dispatch(doctorAcrtions.setDoctors(res))
+    })
+     getServices().then((res)=>{
+         dispatch(ServiceActions.setServices(res))
+     })
 
+  },[])
   return (
     <div>
        <Appointments visible={appointment} setVisible={setAppointment} />
@@ -23,7 +36,7 @@ export default function Home() {
        <Landing setVisible={setAppointment} visible={appointment}  />
         
          <Services >
-          <ServiceItem index={1} information="Dental  center">
+         <ServiceItem index={1} information="Dental  center">
             <TbDental className="lg:text-5xl " />
           </ServiceItem>
           <ServiceItem index={2} information="Pharmacy">

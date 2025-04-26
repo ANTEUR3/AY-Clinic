@@ -15,8 +15,8 @@ const ServicesDeatlis = ({children}: {children:ReactNode}) => {
 export default ServicesDeatlis
 
 
-export const Service=({title,description,children,index}:{title:string,description:string,children:ReactNode,index:number})=>{
-    const service =useSelector((state:any)=>state.service.service)
+export const Service=({title,description,children,index}:{title:String,description:String,children:ReactNode,index:Number})=>{
+    const service =useSelector((state:any)=>state.service.currentService)
     return <div className={` justify-start items-start rounded-xl ${index==service?'flex':'hidden'} w-full  `}>
         {children}
               <div className=' lg:pt-[10px] lg:px-[30px] w-full flex flex-col gap-y-[8px] justify-start '>

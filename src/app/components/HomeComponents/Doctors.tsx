@@ -9,17 +9,17 @@ import { FaRankingStar } from "react-icons/fa6";
 import Link from 'next/link'
 import { DoctorType } from '@/app/Types'
 import {getDoctors} from '../../DataFunction/Dctors'
-
+import { useDispatch, useSelector } from 'react-redux'
+import { doctorAcrtions } from '@/redux/doctorSlice'
 
 
 
 const Doctors = () => {
   const [doctors,setDoctors]=useState<DoctorType[]>([])
-  useEffect(()=>{
-   getDoctors().then((res:DoctorType[])=>{
-         setDoctors(res)
-      })
-  },[])
+ 
+    const doctors_= useSelector((state:any)=>state.doctors)
+    useEffect(()=>{setDoctors(doctors_)},[doctors_])
+ 
   return (
     <div className='w-full lg:px-[150px] lg:pb-[50px]'id='doctors'>
         <div className='w-full flex justify-center items-center'>
